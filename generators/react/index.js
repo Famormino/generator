@@ -6,46 +6,19 @@ module.exports = class extends Generator {
       {
         type: "checkbox",
         name: "features",
-        message: "What features do you want?",
+        message: "Se rompe ese ESlint?",
         choices: [
           {
-            name: "eslint",
+            name: "Más bien!",
             checked: true,
-          },
-          {
-            name: "snippets",
-          },
-          {
-            name: "plop",
-          },
-          {
-            name: "firebase",
-          },
-          {
-            name: "app",
-          },
-        ],
-      },
-      {
-        type: "checkbox",
-        name: "firebase",
-        message: "Which firebase flavours do you want?",
-        when: (answers) => answers.features.includes("firebase"),
-        choices: [
-          {
-            name: "auth",
-            checked: true,
-          },
-          {
-            name: "firestore",
           },
         ],
       },
       {
         type: "list",
         name: "eslint",
-        message: "Which ESLint config do you want?",
-        when: (answers) => answers.features.includes("eslint"),
+        message: "A qué le vas a aplicar?",
+        when: (answers) => answers.features.includes("Más bien!"),
         choices: [
           {
             name: "typescript",
@@ -58,29 +31,7 @@ module.exports = class extends Generator {
           },
         ],
       },
-      {
-        type: "list",
-        name: "app",
-        message: "Which app flavour do you want?",
-        when: (answers) => answers.features.includes("app"),
-        choices: [
-          {
-            name: "simple",
-          },
-          {
-            name: "router",
-          },
-        ],
-      },
     ]);
-
-    if (answers.features.includes("snippets")) {
-      this.composeWith(require.resolve("./snippets"));
-    }
-
-    if (answers.features.includes("plop")) {
-      this.composeWith(require.resolve("./plop"));
-    }
 
     if (answers.eslint) {
       this.composeWith(require.resolve("./eslint/simple"));
@@ -95,26 +46,6 @@ module.exports = class extends Generator {
 
       if (answers.eslint.includes("next")) {
         this.composeWith(require.resolve("./eslint/next"));
-      }
-    }
-
-    if (answers.firebase) {
-      this.composeWith(require.resolve("./firebase/simple"));
-
-      if (answers.firebase.includes("auth")) {
-        this.composeWith(require.resolve("./firebase/auth"));
-      }
-
-      if (answers.firebase.includes("firestore")) {
-        this.composeWith(require.resolve("./firebase/firestore"));
-      }
-    }
-
-    if (answers.app) {
-      if (answers.app === "simple") {
-        this.composeWith(require.resolve("./app/simple"));
-      } else if (answers.app === "router") {
-        this.composeWith(require.resolve("./app/router"));
       }
     }
   }
