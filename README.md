@@ -3,7 +3,7 @@ Yeoman generator for eslint development
 
 ## Generators
 ```
-yo fede:eslint-react
+yo fede:react
 ```
 # What's Yeoman?
 Yeoman helps you to kickstart new projects, prescribing best practices and tools to help you stay productive.
